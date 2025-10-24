@@ -358,6 +358,88 @@
             margin: 0;
         }
 
+        .category {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .entry {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: 15px 0;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .entry:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .entry-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .entry-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .entry.open .entry-content {
+            max-height: 500px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copy-link {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 14px;
+            color: #ff6b9d;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .entry:hover .copy-link {
+            opacity: 1;
+        }
+
+        .copy-link:hover {
+            text-decoration: underline;
+        }
+
+        .entry-content a {
+            color: #ff6b9d;
+            text-decoration: underline;
+        }
+
+        .entry-content a:hover {
+            color: #fff;
+        }
+
+        #backButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6);
+        }
+
         
         footer {
             padding: 40px 50px;
@@ -437,8 +519,8 @@
         <section class="discord-section active" id="home">
             <h1 class="section-title">Willkommen bei Flipsy</h1>
             <p class="section-description">
-                Temp
-                Temo
+                Hier findest du alle wichtigen Discord Server. Tritt unserer Community bei und werde Teil von etwas Großem!
+                Dieser Text kann später angepasst werden.
             </p>
 
             <div class="discord-container">
@@ -448,9 +530,9 @@
                     </div>
                     <h3>Haupt Discord Server</h3>
                     <p>
-                        Temp
-                        Temp
-                        Temp
+                        Willkommen im offiziellen Flipsy Discord Server! Hier triffst du andere Community-Mitglieder, 
+                        bekommst Updates zu Streams, kannst an Events teilnehmen und einfach eine gute Zeit haben. 
+                        temp
                     </p>
                     <a href="https://discord.gg/BfyXvGxxVG" class="discord-btn">Server beitreten</a>
                 </div>
@@ -461,9 +543,9 @@
                     </div>
                     <h3>Entbannungs Discord Server</h3>
                     <p>
-                        Temp
-                        Temp
-                        Temp
+                        Wurde dein Account gebannt? Hier kannst du einen Entbannungsantrag stellen und dein Anliegen 
+                        mit unserem Team besprechen. Bitte sei respektvoll und halte dich an die Regeln. 
+                        temp
                     </p>
                     <a href="https://discord.gg/7Gcy2ENYNg" class="discord-btn">Server beitreten</a>
                 </div>
@@ -473,8 +555,8 @@
         <section class="discord-section" id="socials">
             <h1 class="section-title">Social Media</h1>
             <p class="section-description">
-                Temp
-                Temp
+                Folge mir auf meinen Social Media Kanälen für Updates, Clips und mehr Content!
+                temp
             </p>
 
             <div class="discord-container">
@@ -509,8 +591,8 @@
         <section class="discord-section" id="community">
             <h1 class="section-title">Community Server</h1>
             <p class="section-description">
-                Temp
-                Temp
+                Hier findest du weitere Community Server und Projekte.
+                temp
             </p>
 
             <div style="max-width: 1400px; margin: 0 auto;">
@@ -556,10 +638,107 @@
         </section>
 
         <section class="discord-section" id="support">
-            <h1 class="section-title">Support</h1>
-            <p class="section-description">
-                .
-            </p>
+            <h1 class="section-title">Support & Hilfe</h1>
+            <button id="backButton" onclick="goBack()" style="display: none; margin: 0 auto 20px; padding: 10px 20px; background-color: #5865F2; color: #fff; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.3s;">🔙 Zurück</button>
+
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div class="category">
+                    <h2 style="color: #ff6b9d; font-size: 32px; margin-bottom: 20px;">Minecraft</h2>
+                    <div class="entry" id="server-info" onclick="toggleEntry(this)">
+                        <div class="entry-header">Was ist der Server überhaupt?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'server-info')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Der Server ist da, um der Community von Flipsyy einen Ort zu geben, wo alle Minecraft-Java-Spieler zusammen spielen können!
+                        </div>
+                    </div>
+                    <div class="entry" id="whitelist" onclick="toggleEntry(this)">
+                        <div class="entry-header">Wie lasse ich mich whitelisten?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'whitelist')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Geh auf <a href="https://yt.flipsyy.de" target="_blank">yt.flipsyy.de</a> und schreibe einen Kommentar mit deinem Minecraft-Namen. Beispiel: <em>bitte whitelisten – MinecraftName</em>. Warte auf die Antwort von Flipsyy – dann kannst du joinen!
+                        </div>
+                    </div>
+                    <div class="entry" id="ip" onclick="toggleEntry(this)">
+                        <div class="entry-header">Was ist die IP?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'ip')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Die IP lautet flipsyy.de! Minecraft Java.
+                        </div>
+                    </div>
+                    <div class="entry" id="version" onclick="toggleEntry(this)">
+                        <div class="entry-header">Mit welcher Version kann ich joinen?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'version')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Aktuell unterstützen wir die Versionen 1.9 – 1.21.10!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 style="color: #ff6b9d; font-size: 32px; margin-bottom: 20px;">Discord</h2>
+                    <div class="entry" id="discord" onclick="toggleEntry(this)">
+                        <div class="entry-header">Wie komme ich auf den Discord?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'discord')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Unseren Discord findest du unter <a href="https://dc.flipsyy.de" target="_blank">dc.flipsyy.de</a>
+                        </div>
+                    </div>
+                    <div class="entry" id="team-frage" onclick="toggleEntry(this)">
+                        <div class="entry-header">Was mache ich bei Fragen an das Team?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'team-frage')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Bitte erstelle ein Ticket im Discord!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 style="color: #ff6b9d; font-size: 32px; margin-bottom: 20px;">Social Media</h2>
+                    <div class="entry" id="youtube" onclick="toggleEntry(this)">
+                        <div class="entry-header">Welchen YouTube-Kanal gibt es?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'youtube')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Der Kanal heißt Flipsyy – erreichbar über <a href="https://yt.flipsyy.de" target="_blank">yt.flipsyy.de</a>
+                        </div>
+                    </div>
+                    <div class="entry" id="twitch" onclick="toggleEntry(this)">
+                        <div class="entry-header">Welchen Twitch-Kanal gibt es?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'twitch')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Der Kanal heißt Flipsyy – erreichbar über <a href="https://twitch.flipsyy.de" target="_blank">twitch.flipsyy.de</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 style="color: #ff6b9d; font-size: 32px; margin-bottom: 20px;">Sicherheit</h2>
+                    <div class="entry" id="fake-partner" onclick="toggleEntry(this)">
+                        <div class="entry-header">Fake Partner</div>
+                        <span class="copy-link" onclick="copyLink(event, 'fake-partner')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Aktuell haben wir nur einen offiziellen Partner: scalable.host
+                        </div>
+                    </div>
+                    <div class="entry" id="fake-team" onclick="toggleEntry(this)">
+                        <div class="entry-header">Fake Teammitglieder</div>
+                        <span class="copy-link" onclick="copyLink(event, 'fake-team')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Unser Team besteht aus 3 Admins (Max_Pinguin, Snopy, Gamerboy) und 1 Moderator (Wolf4790).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 style="color: #ff6b9d; font-size: 32px; margin-bottom: 20px;">Events</h2>
+                    <div class="entry" id="event-info" onclick="toggleEntry(this)">
+                        <div class="entry-header">Gibt es bald wieder ein Event?</div>
+                        <span class="copy-link" onclick="copyLink(event, 'event-info')">🔗 Link kopieren</span>
+                        <div class="entry-content">
+                            Aktuell ist noch keins geplant – Infos findest du im Discord, sobald etwas Neues kommt!
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -662,6 +841,52 @@
             });
 
             document.querySelector('nav a[href="#home"]').classList.add('active');
+        });
+
+        function toggleEntry(element) {
+            element.classList.toggle('open');
+            const isOpen = element.classList.contains('open');
+            if (isOpen) {
+                history.pushState(null, '', '#' + element.id);
+            } else {
+                history.pushState(null, '', '#');
+            }
+
+            const anyOpen = document.querySelector('.entry.open');
+            const backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.style.display = anyOpen ? 'block' : 'none';
+            }
+        }
+
+        function goBack() {
+            history.pushState(null, '', '#');
+            document.querySelectorAll('.entry').forEach(e => e.classList.remove('open'));
+            const backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.style.display = 'none';
+            }
+        }
+
+        function copyLink(event, id) {
+            event.stopPropagation();
+            const url = window.location.origin + window.location.pathname + '#' + id;
+            navigator.clipboard.writeText(url).then(() => {
+                alert("🔗 Link kopiert:\n" + url);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = location.hash.replace('#', '');
+            const target = document.getElementById(hash);
+            if (target && target.classList.contains('entry')) {
+                target.classList.add('open');
+                const backButton = document.getElementById('backButton');
+                if (backButton) {
+                    backButton.style.display = 'block';
+                }
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     </script>
 </body>
