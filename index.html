@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipsy - Streamer & Content Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 25s infinite;
+            bottom: -150px;
+        }
+
+        .bg-animation span:nth-child(1) { left: 25%; animation-delay: 0s; width: 80px; height: 80px; }
+        .bg-animation span:nth-child(2) { left: 10%; animation-delay: 2s; width: 20px; height: 20px; }
+        .bg-animation span:nth-child(3) { left: 70%; animation-delay: 4s; width: 40px; height: 40px; }
+        .bg-animation span:nth-child(4) { left: 40%; animation-delay: 0s; width: 60px; height: 60px; }
+        .bg-animation span:nth-child(5) { left: 65%; animation-delay: 3s; width: 30px; height: 30px; }
+        .bg-animation span:nth-child(6) { left: 85%; animation-delay: 7s; width: 50px; height: 50px; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #ff6b9d;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b9d;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Discord Section */
+        .discord-section {
+            padding: 100px 50px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            text-align: center;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        .discord-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .discord-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .discord-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+            border-color: rgba(255, 107, 157, 0.5);
+        }
+
+        .discord-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .discord-image-container {
+            width: 100%;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .discord-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .discord-placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 18px;
+        }
+
+        .discord-card h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .discord-card p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            min-height: 100px;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #5865F2, #7289da);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .discord-section {
+                padding: 50px 30px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .discord-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            header {
+                padding: 20px 30px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 28px;
+            }
+
+            .discord-card {
+                padding: 30px 20px;
+            }
+
+            .discord-card h3 {
+                font-size: 24px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <header>
+        <div class="logo">FLIPSY</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#socials">Socials</a></li>
+                <li><a href="#community">Community Server</a></li>
+                <li><a href="#about">Über mich</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="discord-section" id="home">
+            <h1 class="section-title">Willkommen bei Flipsy</h1>
+            <p class="section-description">
+                Hier findest du alle wichtigen Discord Server. Tritt unserer Community bei und werde Teil von etwas Großem!
+                Dieser Text kann später angepasst werden.
+            </p>
+
+            <div class="discord-container">
+                <!-- Haupt Discord Server -->
+                <div class="discord-card">
+                    <div class="discord-image-container">
+                        <span class="discord-placeholder">Bild für Haupt-Server</span>
+                    </div>
+                    <h3>Haupt Discord Server</h3>
+                    <p>
+                        Willkommen im offiziellen Flipsy Discord Server! Hier triffst du andere Community-Mitglieder, 
+                        bekommst Updates zu Streams, kannst an Events teilnehmen und einfach eine gute Zeit haben. 
+                        Dieser Text kann angepasst werden.
+                    </p>
+                    <a href="https://discord.gg/BfyXvGxxVG" class="discord-btn">Server beitreten</a>
+                </div>
+
+                <!-- Entbannungs Discord Server -->
+                <div class="discord-card">
+                    <div class="discord-image-container">
+                        <span class="discord-placeholder">Bild für Entbannungs-Server</span>
+                    </div>
+                    <h3>Entbannungs Discord Server</h3>
+                    <p>
+                        Wurde dein Account gebannt? Hier kannst du einen Entbannungsantrag stellen und dein Anliegen 
+                        mit unserem Team besprechen. Bitte sei respektvoll und halte dich an die Regeln. 
+                        Dieser Text kann angepasst werden.
+                    </p>
+                    <a href="https://discord.gg/7Gcy2ENYNg" class="discord-btn">Server beitreten</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
