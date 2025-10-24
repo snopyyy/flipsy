@@ -203,8 +203,8 @@
 
         .discord-image-container img {
             width: auto;
-            height: 100%;
-            max-width: 100%;
+            height: 80%;
+            max-width: 80%;
             object-fit: contain;
             border-radius: 15px;
         }
@@ -404,28 +404,17 @@
             </p>
 
             <div class="discord-container">
-                <div class="discord-card">
+                <div class="discord-card" style="grid-column: 1 / -1; max-width: 900px; margin: 0 auto;">
                     <div class="discord-image-container">
-                        <span class="discord-placeholder">Server Bild</span>
+                        <img src="img/flipsy.png" alt="Flipsy Community Server">
                     </div>
-                    <h3>Server Name</h3>
+                    <h3>Flipsy Community Server</h3>
                     <p>
-                        Hier kannst du eine Beschreibung für deinen Community Server einfügen.
-                        Dieser Text kann angepasst werden.
+                        Mein eigener Community Server auf dem jeder Spielen kann, dies ist ein Survival Server und wird von meinem Team so Vanilla wie möglich gehalten.
+                        <br><br>
+                        Der Server hat eine Whitelist, um zu verstehen wie man hinzugefügt wird und wie du dich auf dem Server verhalten solltest, lies dir diese Seite fertig durch.
                     </p>
-                    <a href="#" class="discord-btn">Server beitreten</a>
-                </div>
-
-                <div class="discord-card">
-                    <div class="discord-image-container">
-                        <span class="discord-placeholder">Server Bild</span>
-                    </div>
-                    <h3>Server Name</h3>
-                    <p>
-                        Hier kannst du eine Beschreibung für deinen Community Server einfügen.
-                        Dieser Text kann angepasst werden.
-                    </p>
-                    <a href="#" class="discord-btn">Server beitreten</a>
+                    <a href="#" class="discord-btn" onclick="copyIP(event)">IP kopieren</a>
                 </div>
             </div>
         </section>
@@ -457,6 +446,18 @@
     </footer>
 
     <script>
+        function copyIP(event) {
+            event.preventDefault();
+            
+            const ip = 'flipsyy.de';
+            
+            navigator.clipboard.writeText(ip).then(function() {
+                alert('Die Server IP wurde erfolgreich auf dein Clipboard kopiert!');
+            }).catch(function(err) {
+                console.error('Fehler beim Kopieren: ', err);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('nav a');
             const sections = document.querySelectorAll('.discord-section');
