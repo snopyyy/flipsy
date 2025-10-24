@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flipsy - Streamer & Content Creator</title>
+    <title>Flipsy - Home</title>
+    <link rel="icon" type="image/png" href="img/flipsy.png">
     <style>
         * {
             margin: 0;
@@ -228,7 +229,7 @@
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 30px;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         .discord-btn {
@@ -647,6 +648,13 @@
             const navLinks = document.querySelectorAll('nav a');
             const sections = document.querySelectorAll('.discord-section');
 
+            const titleMap = {
+                'home': 'Home',
+                'socials': 'Socials',
+                'community': 'Community Server',
+                'about': 'Über mich'
+            };
+
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -661,6 +669,8 @@
                     });
                     
                     document.getElementById(targetId).classList.add('active');
+                    
+                    document.title = 'Flipsy - ' + titleMap[targetId];
                 });
             });
 
