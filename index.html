@@ -248,6 +248,115 @@
             box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 50px rgba(255, 107, 157, 0.4);
+            animation: slideUp 0.3s ease-out;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: #ff6b9d;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .modal-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .modal-content a {
+            color: #ff6b9d;
+            text-decoration: underline;
+        }
+
+        .modal-content a:hover {
+            color: #fff;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ff6b9d;
+            transform: scale(1.1);
+        }
+
+        .info-box {
+            background: rgba(255, 107, 157, 0.1);
+            border-left: 4px solid #ff6b9d;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        .info-box p {
+            margin: 0;
+        }
+
         
         footer {
             padding: 40px 50px;
@@ -416,6 +525,14 @@
                     </p>
                     <a href="#" class="discord-btn" onclick="copyIP(event)">IP kopieren</a>
                 </div>
+
+                <div class="discord-card" style="grid-column: 1 / -1; max-width: 900px; margin: 0 auto; margin-top: 50px;">
+                    <h3>Regeln</h3>
+                    <p>
+                        Auf dem Community Server gelten natürlich Regeln die vor dem Spielen verinerlicht werden sollten.
+                    </p>
+                    <a href="#" class="discord-btn" onclick="showRules(event)">Regeln anzeigen</a>
+                </div>
             </div>
         </section>
 
@@ -442,6 +559,42 @@
         </section>
     </main>
 
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeRules()">&times;</span>
+            <h2>Regeln</h2>
+            
+            <h3>1. Griefing</h3>
+            <p>Das mutwillige Zerstören, Stehlen oder Verändern von Bauwerken anderer Spieler ist untersagt. Verstöße können zu einem Bann führen.</p>
+            
+            <h3>2. Hacking & X-Ray</h3>
+            <p>Die Nutzung von Hacks, Mods oder X-Ray-Clients, die einen unfairen Vorteil verschaffen, ist verboten.</p>
+            
+            <h3>3. Respekt vor anderen Bauwerken</h3>
+            <p>Baue nicht direkt neben, über oder in der Nähe von Bauwerken anderer Spieler ohne deren Erlaubnis.</p>
+            
+            <h3>4. PvP</h3>
+            <p>PvP ist nur in vorgesehenen Bereichen erlaubt. Das Töten von Spielern in geschützten Zonen ist untersagt.</p>
+            
+            <h3>5. Bug Abuse</h3>
+            <p>Das absichtliche Ausnutzen von Bugs oder Glitches ist verboten. Melde gefundene Bugs bitte dem Team.</p>
+            
+            <h3>6. Spam/Flooding</h3>
+            <p>Vermeide übermäßige Nachrichten, Werbung oder sich wiederholende Texte im Chat.</p>
+            
+            <h3>7. Trollen & Provozieren</h3>
+            <p>Belästigungen, Störungen oder absichtliches Trollen anderer Spieler sind untersagt.</p>
+            
+            <h3>8. Sei freundlich</h3>
+            <p>Sei nett zu anderen Spielern, hilf ihnen gerne weiter und verhalte dich respektvoll. Unhöflichkeit, Beleidigungen oder toxisches Verhalten haben keinen Platz auf unserem Server.</p>
+            
+            <div class="info-box">
+                <p><strong>Info:</strong> Wir können mit dem <a href="https://modrinth.com/plugin/coreprotect" target="_blank">Coreprotect</a> Plugin alle Aktionen von jedem Spieler einsehen.</p>
+                <p style="margin-top: 15px;"><strong>Unwissenheit der Regeln schützt nicht vor Bestrafung!</strong></p>
+            </div>
+        </div>
+    </div>
+
     <footer>
     </footer>
 
@@ -456,6 +609,22 @@
             }).catch(function(err) {
                 console.error('Fehler beim Kopieren: ', err);
             });
+        }
+
+        function showRules(event) {
+            event.preventDefault();
+            document.getElementById('rulesModal').classList.add('active');
+        }
+
+        function closeRules() {
+            document.getElementById('rulesModal').classList.remove('active');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('rulesModal');
+            if (event.target == modal) {
+                closeRules();
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
