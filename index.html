@@ -91,6 +91,10 @@
             position: relative;
         }
 
+        nav a.active {
+            color: #ff6b9d;
+        }
+
         nav a:hover {
             color: #ff6b9d;
         }
@@ -106,6 +110,10 @@
             transition: width 0.3s;
         }
 
+        nav a.active::after {
+            width: 100%;
+        }
+
         nav a:hover::after {
             width: 100%;
         }
@@ -114,6 +122,11 @@
         .discord-section {
             padding: 100px 50px;
             min-height: calc(100vh - 80px);
+            display: none;
+        }
+
+        .discord-section.active {
+            display: block;
         }
 
         .section-title {
@@ -184,8 +197,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
             overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
         }
 
         .discord-image-container img {
@@ -311,7 +324,7 @@
     </header>
 
     <main>
-        <section class="discord-section" id="home">
+        <section class="discord-section active" id="home">
             <h1 class="section-title">Willkommen bei Flipsy</h1>
             <p class="section-description">
                 Hier findest du alle wichtigen Discord Server. Tritt unserer Community bei und werde Teil von etwas Großem!
@@ -440,5 +453,31 @@
 
     <footer>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('.discord-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            document.querySelector('nav a[href="#home"]').classList.add('active');
+        });
+    </script>
 </body>
 </html>
